@@ -1,0 +1,28 @@
+@@ -22,16 +22,36 @@
+ nclude %3C
+-
+ 
++string.h%3E%0A#include %3C
+ git2.h%3E%0A
+@@ -117,16 +117,108 @@
+ _LINE__)
++#define ONE_TIME fprintf(stdout, %22%25s-%25d%5Cn%22, __FUNCTION__, __LINE__); fflush(stdout);%0Astatic 
+ %0A%0Avoid _
+@@ -430,16 +430,562 @@
+ error);%0A
++static int _diff_stuff(const git_diff_delta *delta, const git_diff_hunk *hunk,%0A    const git_diff_line *line, void *payload)%0A%7B%0A%09char buf%5Bline-%3Econtent_len + 1%5D;%0A%09memset(&buf, 0, line-%3Econtent_len + 1);%0A%09//printf(%22%25d%5Cn%22, line-%3Econtent_len);%0A%09//int offset = line-%3Econtent_offset %3E 0 ? line-%3Econtent_offset : 0;%0A%09strncpy(buf, line-%3Econtent, line-%3Econtent_len);%0A%09if(line-%3Eorigin == 'H') %7B%0A%09%09printf(%22%25s%5Cn%22, buf);%0A%09%7D else %7B%0A%09%09printf(%22%25c %25s%22, line-%3Eorigin, buf);%0A%09%7D%0A#if 0%0A%09if(hunk && hunk-%3Eheader) %7B%0A%09%09printf(%22%25s%22, hunk-%3Eheader);%0A%09%7D%0A#endif%0A%09return 0;%0A%7D%0A
+ %7D%0A%0Aint m
+@@ -1125,16 +1125,33 @@
+ lk *walk
++%09git_diff *diff;%0A
+ er;%0A%09cha
+@@ -1226,56 +1226,242 @@
+ po, %22.%22);%0A%09exit_on_error(err
++%09error = git_diff_index_to_workdir(&diff, repo, NULL, NULL);%0A%09exit_on_error(error);%0A%09error = git_diff_print(diff, GIT_DIFF_FORMAT_PATCH, _diff_stuff, NULL);%0A%09exit_on_error(error);%0A#if 0%0A
+ or);%0A%0A%09error = git_revwalk_n
+@@ -1834,16 +1834,23 @@
+ id_str, 
+-
+ 
++%0A#endif
+ msg);%0A%09%7D

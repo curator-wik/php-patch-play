@@ -1,0 +1,130 @@
+@@ -22,16 +22,36 @@
+ nclude %3C
+-
+ 
++string.h%3E%0A#include %3C
+ git2.h%3E%0A
+@@ -118,17 +118,109 @@
+ LINE__)%0A
+-%0A
++#define ONE_TIME fprintf(stdout, %22%25s-%25d%5Cn%22, __FUNCTION__, __LINE__); fflush(stdout);%0A%0Astatic 
+ void _ex
+@@ -278,24 +278,17 @@
+ line)%0A%7B%0A
+-        
++%09
+ if(!erro
+@@ -294,40 +294,19 @@
+ or)%0A
+-                return;%0A        
++%09%09return;%0A%09
+ cons
+@@ -337,24 +337,17 @@
+ last();%0A
+-        
++%09
+ printf(%22
+@@ -420,27 +420,567 @@
+ e);%0A
+-        exit(error)
++%09exit(error);%0A%7D%0A%0Astatic int _diff_stuff(const git_diff_delta *delta, const git_diff_hunk *hunk,%0A    const git_diff_line *line, void *payload)%0A%7B%0A%09char buf%5Bline-%3Econtent_len + 1%5D;%0A%09memset(&buf, 0, line-%3Econtent_len + 1);%0A%09//printf(%22%25d%5Cn%22, line-%3Econtent_len);%0A%09//int offset = line-%3Econtent_offset %3E 0 ? line-%3Econtent_offset : 0;%0A%09strncpy(buf, line-%3Econtent, line-%3Econtent_len);%0A%09if(line-%3Eorigin == 'H') %7B%0A%09%09printf(%22%25s%5Cn%22, buf);%0A%09%7D else %7B%0A%09%09printf(%22%25c %25s%22, line-%3Eorigin, buf);%0A%09%7D%0A#if 0%0A%09if(hunk && hunk-%3Eheader) %7B%0A%09%09printf(%22%25s%22, hunk-%3Eheader);%0A%09%7D%0A#endif%0A%09return 0
+ ;%0A%7D%0A
+@@ -1014,24 +1014,17 @@
+ argv)%0A%7B%0A
+-        
++%09
+ git_libg
+@@ -1036,24 +1036,17 @@
+ nit();%0A%0A
+-        
++%09
+ git_oid 
+@@ -1050,24 +1050,17 @@
+ id oid;%0A
+-        
++%09
+ git_repo
+@@ -1076,32 +1076,25 @@
+ epo = NULL;%0A
+-        
++%09
+ git_commit *
+@@ -1108,24 +1108,17 @@
+ = NULL;%0A
+-        
++%09
+ git_revw
+@@ -1130,24 +1130,34 @@
+ walker;%0A
+-        
++%09git_diff *diff;%0A%09
+ char oid
+@@ -1174,24 +1174,17 @@
+  = %7B0%7D;%0A
+-        
++%09
+ int erro
+@@ -1187,24 +1187,17 @@
+ error;%0A%0A
+-        
++%09
+ error = 
+@@ -1233,47 +1233,220 @@
+ %22);%0A
+-        exit_on_error(error);%0A%0A        
++%09exit_on_error(error);%0A%0A%09error = git_diff_index_to_workdir(&diff, repo, NULL, NULL);%0A%09exit_on_error(error);%0A%0A%09error = git_diff_print(diff, GIT_DIFF_FORMAT_PATCH, _diff_stuff, NULL);%0A%09exit_on_error(error);%0A#if 0%0A%09
+ erro
+@@ -1481,24 +1481,17 @@
+  repo);%0A
+-        
++%09
+ exit_on_
+@@ -1505,24 +1505,17 @@
+ rror);%0A%0A
+-        
++%09
+ error = 
+@@ -1545,24 +1545,17 @@
+ alker);%0A
+-        
++%09
+ exit_on_
+@@ -1569,24 +1569,17 @@
+ rror);%0A%0A
+-        
++%09
+ while(!g
+@@ -1611,32 +1611,18 @@
+ ker)) %7B%0A
+-                
++%09%09
+ error = 
+@@ -1661,32 +1661,18 @@
+  &oid);%0A
+-                
++%09%09
+ exit_on_
+@@ -1685,32 +1685,18 @@
+ error);%0A
+-                
++%09%09
+ git_oid_
+@@ -1743,32 +1743,18 @@
+  &oid);%0A
+-                
++%09%09
+ const ch
+@@ -1795,24 +1795,10 @@
+ t);%0A
+-                
++%09%09
+ prin
+@@ -1846,27 +1846,20 @@
+ g);%0A
+-        %7D%0A%0A        
++%09%7D%0A#endif%0A%0A%09
+ retu
+@@ -1853,21 +1853,20 @@
+ #endif%0A%0A%09return 0;%0A%7D
+-%0A
+
