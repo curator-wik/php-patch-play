@@ -1,7 +1,7 @@
 {
   "name": "vendor_name/package_name",
   "description": "description_text",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "license": "proprietary",
   "authors": [
     {
@@ -9,8 +9,14 @@
       "email": "email@example.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/curator-wik/diff-match-patch.git"
+    }
+  ],
   "require": {
-    "yetanotherape/diff-match-patch": "^1.0",
+    "yetanotherape/diff-match-patch": "dev-dev-bugfix",
     "ulrichsg/getopt-php": "^2.3",
     "wp-cli/php-cli-tools": "^0.11.1"
   }
